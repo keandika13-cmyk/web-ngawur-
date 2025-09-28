@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teks Berulang</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            padding: 20px;
+            background-color: #f0f0f0;
+            overflow-x: hidden;
+        }
+        
+        .text-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            max-width: 100%;
+        }
+        
+        .text-item {
+            background-color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            white-space: nowrap;
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <div class="text-container" id="textContainer"></div>
+
+    <script>
+        // Teks yang akan diulang
+        const text = "Rio Bayu Ino restu Andik gay";
+        
+        // Fungsi untuk menghasilkan elemen teks
+        function generateTextElements() {
+            const container = document.getElementById('textContainer');
+            const containerWidth = window.innerWidth;
+            const containerHeight = window.innerHeight;
+            
+            // Estimasi jumlah teks yang diperlukan untuk mengisi layar
+            const textWidth = 200; // Perkiraan lebar setiap elemen teks
+            const textHeight = 40; // Perkiraan tinggi setiap elemen teks
+            
+            const cols = Math.ceil(containerWidth / textWidth);
+            const rows = Math.ceil(containerHeight / textHeight);
+            const totalElements = cols * rows;
+            
+            // Bersihkan kontainer sebelum menambahkan elemen baru
+            container.innerHTML = '';
+            
+            // Tambahkan elemen teks
+            for (let i = 0; i < totalElements; i++) {
+                const textElement = document.createElement('div');
+                textElement.className = 'text-item';
+                textElement.textContent = text;
+                textElement.style.animationDelay = `${i * 0.05}s`; // Efek animasi berurutan
+                container.appendChild(textElement);
+            }
+        }
+        
+        // Generate teks saat halaman dimuat
+        window.addEventListener('load', generateTextElements);
+        
+        // Generate ulang teks saat ukuran jendela berubah
+        window.addEventListener('resize', generateTextElements);
+    </script>
+</body>
+</html>
